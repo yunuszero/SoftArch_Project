@@ -109,12 +109,27 @@ const Home = ({navigation}) => {
             backgroundColor: '#F1EEE6',
             transform: [{ scaleX: 1 }]
           }}>
-            <View className='flex-col top-10'>
+            <View className='flex-col top-8'>
               <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-center'>Available Bal.</Text>
               {/* Added Balance component here. */}
               <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-xl mt-1 mb-3 text-center'>{balVisible ? '1,000,000.00' : 'x,xxx,xxx.xx'}</Text>
+              <View className= 'ml-28'>
+                <View className = 'items-center justify-center'
+                  style={{
+                    width: 40,
+                    height: 40,
+                    borderRadius: 40/2,
+                    backgroundColor: '#C7D5B1',
+                    transform: [{ scaleX: 1 }]
+                }}>
+                  <Pressable onPress={() => setBalVisibility(!balVisible)}>
+                    <Image style={{tintColor: '#387766'}} source={balVisible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-6 h-6'></Image>
+                  </Pressable>
+                </View>
+              </View>
             </View>
           </View>
+
           <View className= 'flex-row py-3 justify-center items-center'>
             {/* Update */}
             <Pressable onPress={() => Alert.alert('Refresh page.')}>
@@ -122,18 +137,7 @@ const Home = ({navigation}) => {
             </Pressable>
             <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-egg text-xs text-center'>Updated at 10.30 PM</Text>
           </View>
-          <View className = 'absolute mt-24 left-60 flex items-center justify-center'
-            style={{
-              width: 40,
-              height: 40,
-              borderRadius: 40/2,
-              backgroundColor: '#C7D5B1',
-              transform: [{ scaleX: 1 }]
-          }}>
-            <Pressable onPress={() => setBalVisibility(!balVisible)}>
-              <Image style={{tintColor: '#387766'}} source={balVisible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-6 h-6'></Image>
-            </Pressable>
-          </View>
+          
         </View>
       </View>
 
