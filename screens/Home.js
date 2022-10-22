@@ -78,13 +78,13 @@ const Home = ({navigation}) => {
         <View className='flex-row'>
           {/* go to Notification Screen */}
           <View className= 'absolute m-5 top-0 right-0'>
-            <Pressable onPress={() => navigation.navigate('Transfer')}>
+            <Pressable onPress={() => navigation.navigate('Term')}>
               <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/bell.png')} className='w-8 h-8'></Image>
             </Pressable>
           </View>
           
           {/* go to Setting Screen */}
-          <Pressable onPress={() => navigation.navigate('Transfer')}>
+          <Pressable onPress={() => navigation.navigate('Term')}>
             <Image source={require(profile_pic)} className= 'm-3 w-20 h-20 rounded-full'></Image>
           </Pressable>
           
@@ -170,7 +170,7 @@ const Home = ({navigation}) => {
           {/* go to Transaction Screen */}
           <View className= 'flex-row justify-end my-2 right-4'>
             <View className='w-20 h-6 rounded-lg bg-light-green'>
-              <Pressable onPress={() => navigation.navigate('Transfer')}>
+              <Pressable onPress={() => navigation.navigate('Term')}>
                 <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-sm text-center underline underline-offset-auto '>See More</Text>
               </Pressable>
             </View>
@@ -182,13 +182,13 @@ const Home = ({navigation}) => {
         
         {/* go to Shop Screen */}
         <View className='basis-1/3 items-center'>
-          <Pressable onPress={() => navigation.navigate('Transfer')}>
+          <Pressable onPress={() => navigation.navigate('Term')}>
             <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/cart.png')} className='w-10 h-10'></Image>
           </Pressable>
         </View>
         
-        {/* go to Transfer Screen */}
-        <Pressable onPress={() => navigation.navigate('Transfer')}>
+        {/* go to Term Screen */}
+        <Pressable onPress={() => navigation.navigate('Term')}>
           <View className='items-center bottom-14 basis-1/3 drop-shadow-2xl'>
             <View className='items-center justify-center w-20 h-20 rounded-full bg-green-font'>
                 <View className='items-center justify-center w-4/5 h-4/5 rounded-full bg-light-green'>
@@ -200,7 +200,7 @@ const Home = ({navigation}) => {
         
         {/* go to qr-payment Screen */}
         <View className='basis-1/3 items-center'>
-          <Pressable onPress={() => navigation.navigate('Transfer')}>
+          <Pressable onPress={() => navigation.navigate('Term')}>
             <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/qr-code.png')} className='w-10 h-10'></Image>
           </Pressable>
         </View>

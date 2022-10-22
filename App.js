@@ -4,7 +4,7 @@ import { View, Text } from 'react-native'
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import Home from './screens/Home'
-import Transfer from './screens/Transfer';
+import Term from './screens/Term';
 
 const Stack = createNativeStackNavigator();
 
@@ -18,9 +18,9 @@ const App = () => {
           options={{ headerShown: false }}
         />
         <Stack.Screen
-          name="Transfer"
-          component={Transfer}
-          options={{ title: 'Transfer' }}
+          name="Term"
+          component={Term}
+          options={{ headerShown: false }}
         />
         {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
       </Stack.Navigator>
