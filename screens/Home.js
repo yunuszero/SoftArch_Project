@@ -14,11 +14,11 @@ import {
   Alert
 } from 'react-native';
 
-let time_stamps = '16/10/2022 21:08:20'
+const date = ['16 Oct', '14 Oct']
 
 const DATA = [
   {
-    title: time_stamps.split(' ', 1),
+    title: date[0],
     data: [
       {
         id: '1',
@@ -41,7 +41,7 @@ const DATA = [
     ],
   },
   {
-    title: '14 Oct',
+    title: date[1],
     data: [
       {
         id: '4',
@@ -67,70 +67,70 @@ const DATA = [
 const Home = ({navigation}) => {
   let profile_pic = '../assets/profile/Aqutan.jpg'
 
-  const [visible, setVisibility] = useState(true);
-  const [balVisible, setBalVisibility] = useState(true);
+  const [visible, setVisibility] = useState(false);
+  const [balVisible, setBalVisibility] = useState(false);
 
   return (
 
     <View style={{flex: 1}} className='bg-base'>
 
       <View style={{flex: 3.5}} className='w-full rounded-b-xl bg-green-main'>
-        <View className='flex-row'>
-          {/* go to Notification Screen */}
-          <View className= 'absolute m-5 top-0 right-0'>
-            <Pressable onPress={() => navigation.navigate('Term')}>
-              <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/bell.png')} className='w-8 h-8'></Image>
-            </Pressable>
-          </View>
-          
-          {/* go to Setting Screen */}
-          <Pressable onPress={() => navigation.navigate('Term')}>
-            <Image source={require(profile_pic)} className= 'm-3 w-20 h-20 rounded-full'></Image>
-          </Pressable>
-          
-          <View>
-            {/* Change Username here */}
-            <Text style={{fontFamily: 'NotoSans-Bold'}} className='pt-6 text-xl text-egg'>Username</Text>
-            <View className='flex-row'>
-              {/* Show/Hide ID */}
-              <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-md text-white'>{visible? '123-2-71924' : 'xxx-x-x1924-x'}</Text>
-              <Pressable onPress={() => setVisibility(!visible)}>
-                <Image style={{tintColor: '#FFFFFF'}} source={visible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-3 h-3 ml-2 mt-2'></Image>
+        <View className= 'flex-col w-full h-full'> 
+          <View className='flex-row flex-[3.5] w-full h-full'>
+            {/* go to Notification Screen */}
+            <View className= 'absolute m-5 top-0 right-0'>
+              <Pressable onPress={() => navigation.navigate('Term')}>
+                <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/bell.png')} className='w-8 h-8'></Image>
               </Pressable>
             </View>
-          </View>
-        </View>
-
-        <View className='items-center flex-col'>
-          <View style={{
-            width: 145,
-            height: 145,
-            borderRadius: 145/2,
-            backgroundColor: '#F1EEE6',
-            transform: [{ scaleX: 1 }]
-          }}>
-            <View className='flex-col top-8'>
-              <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-center'>Available Bal.</Text>
-              {/* Added Balance component here. */}
-              <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-xl mt-1 mb-3 text-center'>{balVisible ? '1,000,000.00' : 'x,xxx,xxx.xx'}</Text>
-              <View className= 'ml-28'>
-                <View className = 'items-center justify-center'
-                  style={{
-                    width: 40,
-                    height: 40,
-                    borderRadius: 40/2,
-                    backgroundColor: '#C7D5B1',
-                    transform: [{ scaleX: 1 }]
-                }}>
-                  <Pressable onPress={() => setBalVisibility(!balVisible)}>
-                    <Image style={{tintColor: '#387766'}} source={balVisible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-6 h-6'></Image>
-                  </Pressable>
-                </View>
+            
+            {/* go to Setting Screen */}
+            <Pressable onPress={() => navigation.navigate('Term')}>
+              <Image source={require(profile_pic)} className= 'm-3 w-20 h-20 rounded-full'></Image>
+            </Pressable>
+            
+            <View>
+              {/* Change Username here */}
+              <Text style={{fontFamily: 'NotoSans-Bold'}} className='pt-5 text-xl text-egg'>Username</Text>
+              <View className='flex-row'>
+                {/* Show/Hide ID */}
+                <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-md text-white'>{visible? '123-2-71924' : 'xxx-x-x1924-x'}</Text>
+                <Pressable onPress={() => setVisibility(!visible)}>
+                  <Image style={{tintColor: '#FFFFFF'}} source={visible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-3 h-3 ml-2 mt-2'></Image>
+                </Pressable>
               </View>
             </View>
           </View>
 
-          <View className= 'flex-row py-3 justify-center items-center'>
+          <View className='items-center flex-col flex-[5.25] w-full h-full'>
+            <View className= 'flex-row w-full h-full '>
+              <View className= 'flex-[3.25]'></View>
+              <View className='w-full h-full rounded-full bg-base flex-[3.5]'>
+                <View className='flex-col top-8'>
+                  <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-center'>Available Bal.</Text>
+                  {/* Added Balance component here. */}
+                  <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-xl mt-1 mb-3 text-center'>{balVisible ? '1,000,000.00' : 'x,xxx,xxx.xx'}</Text>
+                  <View className= 'flex-row justify-end'>
+                    <View className = 'items-center justify-center'
+                      style={{
+                        width: 40,
+                        height: 40,
+                        borderRadius: 40/2,
+                        backgroundColor: '#C7D5B1',
+                        transform: [{ scaleX: 1 }]
+                    }}>
+                      <Pressable onPress={() => setBalVisibility(!balVisible)}>
+                        <Image style={{tintColor: '#387766'}} source={balVisible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-6 h-6'></Image>
+                      </Pressable>
+                    </View>
+                  </View>
+                </View>
+              </View>
+              <View className= 'flex-[3.25]'></View>
+            </View>
+          </View>
+
+          <View className= 'flex-[1.25] w-full h-full flex-row justify-center items-center'>
             {/* Update */}
             <Pressable onPress={() => Alert.alert('Refresh page.')}>
               <Image style={{tintColor: '#F6D8A9'}} source={require('../assets/icon/reload.png')} className='w-4 h-4 mr-2'></Image>
