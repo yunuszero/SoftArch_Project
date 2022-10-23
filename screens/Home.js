@@ -11,8 +11,11 @@ import {
   StyleSheet,
   SectionList,
   Image,
-  Alert
+  Alert,
+  Dimensions
 } from 'react-native';
+
+let time_stamps = '16/10/2022 21:08:20'
 
 const date = ['16 Oct', '14 Oct']
 
@@ -24,7 +27,7 @@ const DATA = [
         id: '1',
         Status: 'Payment',
         time_stamp: '11.11 AM',
-        amount: '500'
+        amount: '500',
       },
       {
         id: '2',
@@ -66,6 +69,7 @@ const DATA = [
 
 const Home = ({navigation}) => {
   let profile_pic = '../assets/profile/Aqutan.jpg'
+  const [isRead] = useState(false)
 
   const [visible, setVisibility] = useState(false);
   const [balVisible, setBalVisibility] = useState(false);
@@ -77,35 +81,39 @@ const Home = ({navigation}) => {
       <View style={{flex: 3.5}} className='w-full rounded-b-xl bg-green-main'>
         <View className= 'flex-col w-full h-full'> 
           <View className='flex-row flex-[3.5] w-full h-full'>
-            {/* go to Notification Screen */}
-            <View className= 'absolute m-5 top-0 right-0'>
+            <View className= 'flex-row flex-1'>
+              {/* go to Setting Screen */}
               <Pressable onPress={() => navigation.navigate('Term')}>
-                <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/bell.png')} className='w-8 h-8'></Image>
+                <Image source={require(profile_pic)} className= 'm-3 w-20 h-20 rounded-full'></Image>
               </Pressable>
-            </View>
-            
-            {/* go to Setting Screen */}
-            <Pressable onPress={() => navigation.navigate('Term')}>
-              <Image source={require(profile_pic)} className= 'm-3 w-20 h-20 rounded-full'></Image>
-            </Pressable>
-            
-            <View>
-              {/* Change Username here */}
-              <Text style={{fontFamily: 'NotoSans-Bold'}} className='pt-5 text-xl text-egg'>Username</Text>
-              <View className='flex-row'>
-                {/* Show/Hide ID */}
-                <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-md text-white'>{visible? '123-2-71924' : 'xxx-x-x1924-x'}</Text>
-                <Pressable onPress={() => setVisibility(!visible)}>
-                  <Image style={{tintColor: '#FFFFFF'}} source={visible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-3 h-3 ml-2 mt-2'></Image>
+              
+              <View>
+                {/* Change Username here */}
+                <Text style={{fontFamily: 'NotoSans-Bold'}} className='pt-5 text-xl text-egg'>Username</Text>
+                <View className='flex-row'>
+                  {/* Show/Hide ID */}
+                  <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-md text-white'>{visible? '123-2-71924' : 'xxx-x-x1924-x'}</Text>
+                  <Pressable onPress={() => setVisibility(!visible)}>
+                    <Image style={{tintColor: '#FFFFFF'}} source={visible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-3 h-3 ml-2 mt-2'></Image>
+                  </Pressable>
+                </View>
+              </View>
+
+              {/* go to Notification Screen */}
+              <View className= 'flex-1 items-end'>
+                <Pressable onPress={() => navigation.navigate('Term')}>
+                  <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/bell.png')} className='top-5 right-4 w-8 h-8'></Image>
                 </Pressable>
+                <View className= 'right-4 bottom-3'>
+                  <View className= {isRead? '' : 'w-3 h-3 rounded-full bg-red-noti'}></View>
+                </View>
               </View>
             </View>
           </View>
 
           <View className='items-center flex-col flex-[5.25] w-full h-full'>
-            <View className= 'flex-row w-full h-full '>
-              <View className= 'flex-[3.25]'></View>
-              <View className='w-full h-full rounded-full bg-base flex-[3.5]'>
+            <View className= 'flex-row w-full h-full justify-center'>
+              <View className='w-36 h-36 rounded-full bg-base'>
                 <View className='flex-col top-8'>
                   <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-center'>Available Bal.</Text>
                   {/* Added Balance component here. */}
@@ -126,7 +134,6 @@ const Home = ({navigation}) => {
                   </View>
                 </View>
               </View>
-              <View className= 'flex-[3.25]'></View>
             </View>
           </View>
 

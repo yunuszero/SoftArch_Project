@@ -14,7 +14,8 @@ module.exports = {
         'green-font': '#5E8379',
         'cherry': '#D3AD9F',
         'base': '#F1EEE6',
-        'egg': '#F6D8A9'
+        'egg': '#F6D8A9',
+        'red-noti': '#FD6565'
       },
       spacing: {
         '96%': '96%',
