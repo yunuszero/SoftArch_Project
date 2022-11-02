@@ -12,8 +12,11 @@ import {
   SectionList,
   Image,
   Alert,
-  Dimensions
+  Dimensions,
+  RefreshControl
 } from 'react-native';
+
+// import axios from 'axios';
 
 let time_stamps = '16/10/2022 21:08:20'
 
@@ -66,6 +69,9 @@ const DATA = [
       },
     ]
 }];
+const wait = (timeout) => {
+  return new Promise(resolve => setTimeout(resolve, timeout));
+}
 
 const Home = ({navigation}) => {
   let profile_pic = '../assets/profile/Aqutan.jpg'
@@ -73,6 +79,16 @@ const Home = ({navigation}) => {
 
   const [visible, setVisibility] = useState(false);
   const [balVisible, setBalVisibility] = useState(false);
+  const [refreshing, setRefreshing] = React.useState(false);
+
+  const refreshPage = React.useCallback(()=>{
+    setRefreshing(true);
+    wait(2000).then(() => setRefreshing(false));
+  }, []); 
+
+  let time_stamp=Date().split(" ")[4]
+  // time_stamp = time_stamp[0]+":"+time_stamp[1]
+  // console.log(time_stamp)
 
   return (
 
@@ -105,7 +121,7 @@ const Home = ({navigation}) => {
                   <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/bell.png')} className='top-5 right-4 w-8 h-8'></Image>
                 </Pressable>
                 <View className= 'right-4 bottom-3'>
-                  <View className= {isRead? '' : 'w-3 h-3 rounded-full bg-red-noti'}></View>
+                  <View className= {isRead? '' : 'w-3 h-3 rounded-full bg-red-noti'} />
                 </View>
               </View>
             </View>
@@ -138,11 +154,11 @@ const Home = ({navigation}) => {
           </View>
 
           <View className= 'flex-[1.25] w-full h-full flex-row justify-center items-center'>
-            {/* Update */}
-            <Pressable onPress={() => Alert.alert('Refresh page.')}>
+            {/* Update time example -> 10.30 PM */}
+            <Pressable onPress={() => refreshPage()}>
               <Image style={{tintColor: '#F6D8A9'}} source={require('../assets/icon/reload.png')} className='w-4 h-4 mr-2'></Image>
             </Pressable>
-            <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-egg text-xs text-center'>Updated at 10.30 PM</Text>
+            <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-egg text-xs text-center'>Updated at {time_stamp}</Text>
           </View>
           
         </View>
@@ -151,38 +167,44 @@ const Home = ({navigation}) => {
       <View style={{flex: 5.8}}>
         <Text style={{fontFamily: 'NotoSans-Bold'}} className='pl-4 pt-3 text-2xl text-green-font'>Recent Transaction</Text>
         
-        <ScrollView>
-          <SectionList
-            sections={[...DATA]}
-            renderItem={({item})=>(
-              <View className='inset-x-4 w-11/12 rounded-lg my-1 pr-1 bg-green-font'>
-                <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-white pl-1 pt-1 text-base'>
-                  {item.Status} 
-                </Text>
-                <Text style={{fontFamily: 'NotoSans-Bold'}} className='absolute right-0 pt-3 pr-2 text-white text-base'>
-                  {item.amount} Bath.
-                </Text>
-                <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-white pl-1 pb-1 text-xs'>
-                  {item.time_stamp} 
-                </Text>
-              </View>
-            )}
-            renderSectionHeader={({section})=>(
-              <Text style={{fontFamily: 'NotoSans-Bold'}} className='right-4 text-right mt-1 text-lg text-green-font'>
-                {section.title}
+        <SectionList
+          sections={[...DATA]}
+          renderItem={({item})=>(
+            <View className='inset-x-4 w-11/12 rounded-lg my-1 pr-1 bg-green-font'>
+              <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-white pl-1 pt-1 text-base'>
+                {item.Status} 
               </Text>
-            )}
-            keyExtractor={item=>item.id}
-          />
-          {/* go to Transaction Screen */}
-          <View className= 'flex-row justify-end my-2 right-4'>
-            <View className='w-20 h-6 rounded-lg bg-light-green'>
-              <Pressable onPress={() => navigation.navigate('Term')}>
-                <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-sm text-center underline underline-offset-auto '>See More</Text>
-              </Pressable>
+              <Text style={{fontFamily: 'NotoSans-Bold'}} className='absolute right-0 pt-3 pr-2 text-white text-base'>
+                {item.amount} Bath.
+              </Text>
+              <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-white pl-1 pb-1 text-xs'>
+                {item.time_stamp} 
+              </Text>
             </View>
-          </View>
-        </ScrollView>
+          )}
+          renderSectionHeader={({section})=>(
+            <Text style={{fontFamily: 'NotoSans-Bold'}} className='right-4 text-right mt-1 text-lg text-green-font'>
+              {section.title}
+            </Text>
+          )}
+          ListFooterComponent={
+            // go to Transaction Screen
+            <View className= 'flex-row justify-end my-2 right-4'>
+              <View className='w-20 h-6 rounded-lg bg-light-green'>
+                <Pressable onPress={() => navigation.navigate('Term')}>
+                  <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-sm text-center underline underline-offset-auto '>See More</Text>
+                </Pressable>
+              </View>
+            </View>
+          }
+          keyExtractor={item=>item.id}
+          // refreshControl={
+          //   <RefreshControl
+          //     refreshing={refreshing}
+          //     onRefresh={refreshPage}
+          //   />
+          // }
+        />
       </View>
 
       <View style={{flex: 0.7}} className='flex-row items-center justify-center left-1% w-96% rounded-t-xl bg-green-main'>
@@ -194,7 +216,7 @@ const Home = ({navigation}) => {
           </Pressable>
         </View>
         
-        {/* go to Term Screen */}
+        {/* go to Transfer Screen */}
         <Pressable onPress={() => navigation.navigate('Term')}>
           <View className='items-center bottom-14 basis-1/3 drop-shadow-2xl'>
             <View className='items-center justify-center w-20 h-20 rounded-full bg-green-font'>
