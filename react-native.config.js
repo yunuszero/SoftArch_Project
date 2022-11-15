@@ -1,3 +1,3 @@
 module.exports = {
-    assets: ['./assets/fonts/NotoSans'],
+    assets: ['./src/assets/fonts/NotoSans'],
   };

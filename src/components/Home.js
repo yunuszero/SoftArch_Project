@@ -1,5 +1,9 @@
 import React, {useState} from 'react'
 // import type {Node} from 'react';
+
+import { useSelector, useDispatch } from 'react-redux';
+import { toggleBal, toggleID } from '../redux/actions/visibleAction';
+
 import {
   SafeAreaView,
   ScrollView,
@@ -20,11 +24,11 @@ import {
 
 let time_stamps = '16/10/2022 21:08:20'
 
-const date = ['16 Oct', '14 Oct']
+const date_data = ['16 Oct', '14 Oct']
 
-const DATA = [
+let DATA = [
   {
-    title: date[0],
+    date: date_data[0],
     data: [
       {
         id: '1',
@@ -47,7 +51,7 @@ const DATA = [
     ],
   },
   {
-    title: date[1],
+    date: date_data[1],
     data: [
       {
         id: '4',
@@ -69,17 +73,37 @@ const DATA = [
       },
     ]
 }];
+
 const wait = (timeout) => {
   return new Promise(resolve => setTimeout(resolve, timeout));
 }
 
 const Home = ({navigation}) => {
   let profile_pic = '../assets/profile/Aqutan.jpg'
-  const [isRead] = useState(false)
+  // const [isRead, setIsRead] = useState(false)
 
-  const [visible, setVisibility] = useState(false);
-  const [balVisible, setBalVisibility] = useState(false);
+  // const [visible, setVisibility] = useState(false);
+  // const [balVisible, setBalVisibility] = useState(false);
   const [refreshing, setRefreshing] = React.useState(false);
+
+  const dispatch = useDispatch();
+  
+  const id_visible = useSelector((store) => store.visible.idVisible);
+  const bal_visible = useSelector((store) => store.visible.balVisible);
+  const isRead = useSelector((store) => store.visible.isRead);
+
+  const toggleVisibility = () => {
+    // setVisibility(!visible);
+    dispatch(toggleID());
+  }
+
+  const toggleBalVisibility = () => {
+    dispatch(toggleBal());
+  }
+
+  const toggleNotiRead = () => {
+    dispatch(toggleNotiRead());
+  }
 
   const refreshPage = React.useCallback(()=>{
     setRefreshing(true);
@@ -108,9 +132,9 @@ const Home = ({navigation}) => {
                 <Text style={{fontFamily: 'NotoSans-Bold'}} className='pt-5 text-xl text-egg'>Username</Text>
                 <View className='flex-row'>
                   {/* Show/Hide ID */}
-                  <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-md text-white'>{visible? '123-2-71924' : 'xxx-x-x1924-x'}</Text>
-                  <Pressable onPress={() => setVisibility(!visible)}>
-                    <Image style={{tintColor: '#FFFFFF'}} source={visible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-3 h-3 ml-2 mt-2'></Image>
+                  <Text style={{fontFamily: 'NotoSans-Regular'}} className='text-md text-white'>{id_visible? '123-2-71924' : 'xxx-x-x1924-x'}</Text>
+                  <Pressable onPress={() => toggleVisibility()}>
+                    <Image style={{tintColor: '#FFFFFF'}} source={id_visible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-3 h-3 ml-2 mt-2'></Image>
                   </Pressable>
                 </View>
               </View>
@@ -133,7 +157,7 @@ const Home = ({navigation}) => {
                 <View className='flex-col top-8'>
                   <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-center'>Available Bal.</Text>
                   {/* Added Balance component here. */}
-                  <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-xl mt-1 mb-3 text-center'>{balVisible ? '1,000,000.00' : 'x,xxx,xxx.xx'}</Text>
+                  <Text style={{fontFamily: 'NotoSans-Bold'}} className='text-green-main text-xl mt-1 mb-3 text-center'>{bal_visible ? '1,000,000.00' : 'x,xxx,xxx.xx'}</Text>
                   <View className= 'flex-row justify-end'>
                     <View className = 'items-center justify-center'
                       style={{
@@ -143,8 +167,8 @@ const Home = ({navigation}) => {
                         backgroundColor: '#C7D5B1',
                         transform: [{ scaleX: 1 }]
                     }}>
-                      <Pressable onPress={() => setBalVisibility(!balVisible)}>
-                        <Image style={{tintColor: '#387766'}} source={balVisible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-6 h-6'></Image>
+                      <Pressable onPress={() => toggleBalVisibility()}>
+                        <Image style={{tintColor: '#387766'}} source={bal_visible ? require('../assets/icon/eye.png') : require('../assets/icon/hidden.png')} className='w-6 h-6'></Image>
                       </Pressable>
                     </View>
                   </View>
@@ -184,7 +208,7 @@ const Home = ({navigation}) => {
           )}
           renderSectionHeader={({section})=>(
             <Text style={{fontFamily: 'NotoSans-Bold'}} className='right-4 text-right mt-1 text-lg text-green-font'>
-              {section.title}
+              {section.date}
             </Text>
           )}
           ListFooterComponent={

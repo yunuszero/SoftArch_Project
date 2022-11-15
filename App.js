@@ -1,30 +1,24 @@
 import React from 'react'
 import { View, Text } from 'react-native'
-// import 'react-native-gesture-handler';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import Home from './screens/Home'
-import Term from './screens/Term';
+import { Provider } from 'react-redux';
+import Home from './src/components/Home';
+import Term from './src/components/Term';
+import { store } from './src/redux/store';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <NavigationContainer>
-      <Stack.Navigator>
-        <Stack.Screen
-          name="Home"
-          component={Home}
-          options={{ headerShown: false }}
-        />
-        <Stack.Screen
-          name="Term"
-          component={Term}
-          options={{ headerShown: false }}
-        />
-        {/* <Stack.Screen name="Profile" component={ProfileScreen} /> */}
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Provider store={store}>
+      <NavigationContainer>
+        <Stack.Navigator screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="Home" component={Home} />
+          <Stack.Screen name="Term" component={Term} />
+        </Stack.Navigator>
+      </NavigationContainer>
+    </Provider>
   )
 }
 
