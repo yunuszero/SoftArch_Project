@@ -1,8 +1,13 @@
-import { createStore, combineReducers } from "redux";
 import VisibleReducer from "./reducers/visibleReducer";
+import { createStore, combineReducers, applyMiddleware } from "redux";
+import { pinReducers } from "./reducers/pinReducer";
+import { transactionReducer } from "./reducers/transactionReducer";
+import thunk from "redux-thunk";
 
-const rootReducers = combineReducers({
-    visible: VisibleReducer
+const rootReducer = combineReducers ({
+    visible: VisibleReducer,
+    pin: pinReducers,
+    // transaction: transactionReducer, 
 })
 
-export const store = createStore(rootReducers);
+export const store = createStore(rootReducer, applyMiddleware(thunk));

@@ -2,7 +2,7 @@ import React, {useState} from 'react'
 // import type {Node} from 'react';
 
 import { useSelector, useDispatch } from 'react-redux';
-import { toggleBal, toggleID } from '../redux/actions/visibleAction';
+import { toggleBal, toggleID, readNoti, updateNoti } from '../redux/actions/visibleAction';
 
 import {
   SafeAreaView,
@@ -108,6 +108,7 @@ const Home = ({navigation}) => {
   const refreshPage = React.useCallback(()=>{
     setRefreshing(true);
     wait(2000).then(() => setRefreshing(false));
+    dispatch(updateNoti());
   }, []); 
 
   let time_stamp=Date().split(" ")[4]
@@ -141,7 +142,10 @@ const Home = ({navigation}) => {
 
               {/* go to Notification Screen */}
               <View className= 'flex-1 items-end'>
-                <Pressable onPress={() => navigation.navigate('Term')}>
+                <Pressable onPress={() => {
+                  dispatch(readNoti());
+                  navigation.navigate('Term');
+                  }}>
                   <Image style={{tintColor: '#F1EEE6'}} source={require('../assets/icon/bell.png')} className='top-5 right-4 w-8 h-8'></Image>
                 </Pressable>
                 <View className= 'right-4 bottom-3'>
